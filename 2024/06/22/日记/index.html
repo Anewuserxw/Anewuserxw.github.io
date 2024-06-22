@@ -19,28 +19,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"anewuserxw.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.15.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":"ture","color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="CS：代码段寄存器 IP：指令指针寄存器 (1)X86PC刚开机CPU为实模式（CS：PC(CS左移四位+IP)，得到物理地址，其中四位是二进制四位） (2)开机时：S&#x3D;0XFFFF；IP&#x3D;0X0000 (3)寻址：0XFFFF0(ROM BIOS 映射区) (4)检查RAM，键盘，显示器，软硬磁盘 (5)将磁盘0磁道0扇区读入0X7c00处(0磁道0扇区为引导扇区，一个扇区5">
+    <meta name="description" content="日记2024&#x2F;06&#x2F;22​	活了21岁，好像还是第一次写所谓的日记，以前从不知道为什么会有人喜欢写日记，也不知道为什么今天突然想如此地正式地写一下日记，可能是最近真的太焦虑了，刷抖音说写日记可以缓解焦虑，于是我开始写了，感觉像是和一个人说话一样。焦虑心情烦躁，我觉得是因为之前失恋了，上个月五月二十一号他和我提出了分手，很讽刺的日期，在那之后我也发过很长的小作文，很虚伪，我很想和">
 <meta property="og:type" content="article">
-<meta property="og:title" content="操作系统的启动">
-<meta property="og:url" content="https://anewuserxw.github.io/2023/05/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%90%AF%E5%8A%A8/index.html">
+<meta property="og:title" content="日记">
+<meta property="og:url" content="https://anewuserxw.github.io/2024/06/22/%E6%97%A5%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Healer">
-<meta property="og:description" content="CS：代码段寄存器 IP：指令指针寄存器 (1)X86PC刚开机CPU为实模式（CS：PC(CS左移四位+IP)，得到物理地址，其中四位是二进制四位） (2)开机时：S&#x3D;0XFFFF；IP&#x3D;0X0000 (3)寻址：0XFFFF0(ROM BIOS 映射区) (4)检查RAM，键盘，显示器，软硬磁盘 (5)将磁盘0磁道0扇区读入0X7c00处(0磁道0扇区为引导扇区，一个扇区5">
+<meta property="og:description" content="日记2024&#x2F;06&#x2F;22​	活了21岁，好像还是第一次写所谓的日记，以前从不知道为什么会有人喜欢写日记，也不知道为什么今天突然想如此地正式地写一下日记，可能是最近真的太焦虑了，刷抖音说写日记可以缓解焦虑，于是我开始写了，感觉像是和一个人说话一样。焦虑心情烦躁，我觉得是因为之前失恋了，上个月五月二十一号他和我提出了分手，很讽刺的日期，在那之后我也发过很长的小作文，很虚伪，我很想和">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-05-01T07:04:04.000Z">
-<meta property="article:modified_time" content="2023-05-01T09:58:32.013Z">
+<meta property="article:published_time" content="2024-06-22T08:04:47.000Z">
+<meta property="article:modified_time" content="2024-06-22T09:05:57.014Z">
 <meta property="article:author" content="WX">
-<meta property="article:tag" content="操作系统的启动">
+<meta property="article:tag" content="日记">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://anewuserxw.github.io/2023/05/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%90%AF%E5%8A%A8/">
+<link rel="canonical" href="https://anewuserxw.github.io/2024/06/22/%E6%97%A5%E8%AE%B0/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://anewuserxw.github.io/2023/05/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%90%AF%E5%8A%A8/","path":"2023/05/01/操作系统的启动/","title":"操作系统的启动"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://anewuserxw.github.io/2024/06/22/%E6%97%A5%E8%AE%B0/","path":"2024/06/22/日记/","title":"日记"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>操作系统的启动 | Healer</title>
+<title>日记 | Healer</title>
   
 
 
@@ -137,7 +137,7 @@
          auto="https://y.qq.com/n/ryqq/playlist/8878825426.html#stat=y_new.playlist.pic_click">
     </meting-js>
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -150,6 +150,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%A5%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">日记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2024-x2F-06-x2F-22"><span class="nav-number">1.1.</span> <span class="nav-text">2024&#x2F;06&#x2F;22</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -219,7 +220,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://anewuserxw.github.io/2023/05/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%90%AF%E5%8A%A8/">
+    <link itemprop="mainEntityOfPage" href="https://anewuserxw.github.io/2024/06/22/%E6%97%A5%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/Lost%20In%20Japan%20(Remix).jpg">
@@ -232,12 +233,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="操作系统的启动 | Healer">
+      <meta itemprop="name" content="日记 | Healer">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          操作系统的启动
+          日记
         </h1>
 
         <div class="post-meta-container">
@@ -249,7 +250,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-05-01 15:04:04 / 修改时间：17:58:32" itemprop="dateCreated datePublished" datetime="2023-05-01T15:04:04+08:00">2023-05-01</time>
+      <time title="创建时间：2024-06-22 16:04:47 / 修改时间：17:05:57" itemprop="dateCreated datePublished" datetime="2024-06-22T16:04:47+08:00">2024-06-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -257,7 +258,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/OS/" itemprop="url" rel="index"><span itemprop="name">OS</span></a>
+          <a href="/categories/%E6%97%A5%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">日记</span></a>
         </span>
     </span>
 
@@ -268,14 +269,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>118</span>
+      <span>1.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>6 分钟</span>
     </span>
 </div>
 
@@ -286,13 +287,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>CS：代码段寄存器 IP：指令指针寄存器</p>
-<p>(1)X86PC刚开机CPU为实模式（CS：PC(CS左移四位+IP)，得到物理地址，其中四位是二进制四位）</p>
-<p>(2)开机时：S&#x3D;0XFFFF；IP&#x3D;0X0000</p>
-<p>(3)寻址：0XFFFF0(ROM BIOS 映射区)</p>
-<p>(4)检查RAM，键盘，显示器，软硬磁盘</p>
-<p>(5)将磁盘0磁道0扇区读入0X7c00处(0磁道0扇区为引导扇区，一个扇区512个字节)</p>
-<p>(6)设置CS&#x3D;0X07c0,IP&#x3D;0X0000</p>
+        <h1 id="日记"><a href="#日记" class="headerlink" title="日记"></a>日记</h1><h2 id="2024-x2F-06-x2F-22"><a href="#2024-x2F-06-x2F-22" class="headerlink" title="2024&#x2F;06&#x2F;22"></a>2024&#x2F;06&#x2F;22</h2><p>​	活了21岁，好像还是第一次写所谓的日记，以前从不知道为什么会有人喜欢写日记，也不知道为什么今天突然想如此地正式地写一下日记，可能是最近真的太焦虑了，刷抖音说写日记可以缓解焦虑，于是我开始写了，感觉像是和一个人说话一样。焦虑心情烦躁，我觉得是因为之前失恋了，上个月五月二十一号他和我提出了分手，很讽刺的日期，在那之后我也发过很长的小作文，很虚伪，我很想和他和好，但是我却要假惺惺地说我尊重你的选择，我希望你能快乐。我记得我当时想了很久如何该组织我的文字，也很讽刺，他说他不太想回消息了，他说他过得很好，也希望我以后好好的。我们高中就在一起了，五年了，还有三年异地，真心说我真的感觉我有很多地方做得不好，只是结束的有点突然，大概到了六月多号，我真的觉得我已经忘记他了，我都觉得我好渣呀，我其实没有那么爱他，不知道是不是因为之前太忙了，这个礼拜，差不多是前几天，我突然梦到他了，没用任何征兆，就和当初他和我分手一样，梦里面他好像在和他同学说笑，看不起他同学的脸，因为我都没见过，只看得清他的脸，不知道为什么在梦里我很强烈感受到很难受，就像之前在高中他一直和别人讲话不搭理我时，我就会很难过，会哭。我似乎一直有性格问题，说实话除了他我都没有朋友，然后他也不要我了，真的是这几天好像才意识到，或许为什么现在我在写这篇日记的原因，感觉不应该说是日记，只是心里的一些想法，没人诉说，找不到和谁讲了。我这个人好奇怪，似乎除了他，我好像和谁无论男生女生好像是要稍微熟悉一点，只要当对方对我突然熟悉一点，可能在我感觉是那种粘人，但其实只是正常的朋友关系，我似乎都会感到很抵抗，我感到很抗拒，我不想和别人太熟，但是我又很怕孤独，这好像也是为什么我都没朋友的原因，当时分手时他在半夜法律很多消息，应该是早就想好这么说了，说他很难受很痛苦，说他也忍受了很久，他说他和他最好的朋友讲了我们说我们不像是在谈恋爱，我其实有点恍惚，我连朋友都没有，真的好悲哀活的，当时分手时好想找人倾诉，现在也好想找人倾诉，感觉好累活的，不知道为什么这么累了，第一次感觉活得这么失败。下半年十二月我还要考研，他还让我好好备考，说实话我已经好久没复习了，现在每天都是刷手机，真的好累每天。说实话，我真的很想他，很怀恋以前的时光，但是我又告诉我自己这样子是很小丑的，说不定他早已找到了新欢，和别人说着晚安爱你，和别人亲亲抱抱，是的，这真的很小丑。但是真的好难忘记，不知道为什么。我宿舍里唯一个稍微熟一点可以聊天的室友，今天早上也参加培训去了长沙了，估计下学期也不会回来了，早上醒来时就感觉到空虚，感觉真的只有自己一个人了，所有人都走了，之前刷抖音刷到伤感文案，评论都会有自从他离开我以后，我都发现我找不到人讲话了，不知道评论中是不是都是这样还是玩梗，但是好像说的就是我，真的好悲哀。现在宿舍里救我一个人了，大家似乎都有很好的未来很好的目标，似乎只有我还在这浪费时间写着这无用的日记。其实高中时候我就和我同学说过我很想看看我死了别人是什么反应，不知道别人有没有这个想法，我似乎很在意有没有人爱我，从小我就经常被我爸爸说教，很难受，因为一些小事就开始对我说教或着骂我，我感觉我可能从小就很缺爱，才会让我现在这个样子。说实话，我真的很想自杀，可是我真的好怕痛，唯一害怕我的家人，不知道我如果死了他们会不会很伤心，不知道会不会有人爱我，都说要自爱别人才会爱你，但是真的好难，我不知道自己是不是有点抑郁了，但我感觉没有，真希望以后有一天我能够自私一点，能够不想我的家人了，直接离开这个世界，真希望能找到一种不痛的方式帮我解脱，好累，每天浑浑噩噩也不知道自己在干嘛。可能都是失恋的原因吧，感觉唯一的精神寄托和交流没了，或许写日记就是和自己对话吧，不知道有没有用，但我最近真的很焦虑很无助，感觉没有任何的动力，感觉浑身好累，我好想发朋友圈说我要自杀了，希望有人能来拯救我，可是我都没有勇气，真的好累。我可能是真的太想他了，五年的感情真的好难忘记和释怀，我真的以为我只要几天就能忘记的。真的好累，好想有个人来配一下我，或许我真的要去找心理医生了。好累，最近好容易哭，我明明是在看游戏视频，但稍微一走神想到别的，眼泪就流出来了，好奇怪，有时候我又能开怀大笑无忧无虑，早上醒来却觉得空虚至极，不知道怎么了，我好想他，却没任何办法，好想给他发消息，体面地聊一聊，但是我们都没有，就很草草地离场了，感觉好难走出来，好想有人能帮。太累了真的好累。好想自杀，但是又不敢，真的是讽刺，之前一直不理解为何会有人自杀，也不理解会什么不珍惜生命，现在发现也许是那些人太累了而已，我也好累，写不下去了，就先这样吧，希望写日记能帮助我一点吧，你现在好像是我唯一的朋友了。</p>
 
     </div>
 
@@ -302,21 +297,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%90%AF%E5%8A%A8/" rel="tag"># 操作系统的启动</a>
+              <a href="/tags/%E6%97%A5%E8%AE%B0/" rel="tag"># 日记</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/04/30/%E8%B0%83%E5%BA%A6/" rel="prev" title="调度">
-                  <i class="fa fa-chevron-left"></i> 调度
+                <a href="/2024/01/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="prev" title="数据结构">
+                  <i class="fa fa-chevron-left"></i> 数据结构
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/05/04/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" rel="next" title="文件系统">
-                  文件系统 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>

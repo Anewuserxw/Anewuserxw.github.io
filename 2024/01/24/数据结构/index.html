@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"anewuserxw.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.15.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":"ture","color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="数据结构线性表栈、队列和数组栈栈的基本概念1.栈的定义 栈（Stack）是只允许在一端进行插入或删除操作的线性表。首先栈是一种线性表，但限定这种线性表只能在某一端进行插入和删除操作。 栈顶(Top)。线性表允许进行插入删除的那一端。栈底(Bottom)。固定的，不允许进行插入和删除的另一端。空栈。不含任何元素的空表。 栈的数学性质：n个不同元素进栈，出栈元素不同排列的个数为。上述公式称为卡特兰(C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构">
+<meta property="og:url" content="https://anewuserxw.github.io/2024/01/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:site_name" content="Healer">
+<meta property="og:description" content="数据结构线性表栈、队列和数组栈栈的基本概念1.栈的定义 栈（Stack）是只允许在一端进行插入或删除操作的线性表。首先栈是一种线性表，但限定这种线性表只能在某一端进行插入和删除操作。 栈顶(Top)。线性表允许进行插入删除的那一端。栈底(Bottom)。固定的，不允许进行插入和删除的另一端。空栈。不含任何元素的空表。 栈的数学性质：n个不同元素进栈，出栈元素不同排列的个数为。上述公式称为卡特兰(C">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="d:\myblog\hexoblog\source_posts\%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84\1.png">
+<meta property="og:image" content="d:\myblog\hexoblog\source\_posts\%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84\2.png">
+<meta property="og:image" content="d:\myblog\hexoblog\source\_posts\%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84\3.png">
+<meta property="og:image" content="d:\myblog\hexoblog\source_posts\%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84\4.png">
+<meta property="article:published_time" content="2024-01-24T12:34:42.000Z">
+<meta property="article:modified_time" content="2024-01-28T16:13:04.469Z">
+<meta property="article:author" content="WX">
+<meta property="article:tag" content="123">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="d:\myblog\hexoblog\source_posts\%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84\1.png">
+
+
+<link rel="canonical" href="https://anewuserxw.github.io/2024/01/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://anewuserxw.github.io/2024/01/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/","path":"2024/01/24/数据结构/","title":"数据结构"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>数据结构 | Healer</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Healer</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">A new look</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+  <div class="sidebar-inner">   
+    <!-- require APlayer -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <!-- require MetingJS-->
+    <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script> 
+    <!--网易云-->   
+    <meting-js
+         auto="https://y.qq.com/n/ryqq/playlist/8878825426.html#stat=y_new.playlist.pic_click">
+    </meting-js>
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E8%A1%A8"><span class="nav-number">1.1.</span> <span class="nav-text">线性表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%88%E3%80%81%E9%98%9F%E5%88%97%E5%92%8C%E6%95%B0%E7%BB%84"><span class="nav-number">1.2.</span> <span class="nav-text">栈、队列和数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88"><span class="nav-number">1.2.1.</span> <span class="nav-text">栈</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">栈的基本概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">栈的顺序存储结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%88%E7%9A%84%E9%93%BE%E5%BC%8F%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">栈的链式存储结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%9F%E5%88%97"><span class="nav-number">1.2.2.</span> <span class="nav-text">队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%9F%E5%88%97%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">队列的基本概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%9F%E5%88%97%E7%9A%84%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">队列的顺序存储结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%B8%8E%E7%89%B9%E6%AE%8A%E7%9F%A9%E9%98%B5"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">数组与特殊矩阵</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%B2"><span class="nav-number">1.3.</span> <span class="nav-text">串</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%B2%E5%AE%9A%E4%B9%89%E4%B8%8E%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">串定义与实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#x3D-x3D-%E4%B8%B2%E7%9A%84%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95-x3D-x3D"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">&#x3D;&#x3D;串的模式匹配算法&#x3D;&#x3D;</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">1.4.</span> <span class="nav-text">树和二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE"><span class="nav-number">1.5.</span> <span class="nav-text">图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE"><span class="nav-number">1.6.</span> <span class="nav-text">查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F"><span class="nav-number">1.7.</span> <span class="nav-text">排序</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="WX"
+      src="/images/Lost%20In%20Japan%20(Remix).jpg">
+  <p class="site-author-name" itemprop="name">WX</p>
+  <div class="site-description" itemprop="description">THE WHOLE</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode.cn/" title="LeetCode → https:&#x2F;&#x2F;leetcode.cn&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-leetcode fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/yourname" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;yourname" rel="noopener me" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://youtube.com/yourname" title="YouTube → https:&#x2F;&#x2F;youtube.com&#x2F;yourname" rel="noopener me" target="_blank"><i class="fab fa-youtube fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/yourname" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;yourname" rel="noopener me" target="_blank"><i class="fab fa-instagram fa-fw"></i></a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://anewuserxw.github.io/2024/01/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Lost%20In%20Japan%20(Remix).jpg">
+      <meta itemprop="name" content="WX">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Healer">
+      <meta itemprop="description" content="THE WHOLE">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="数据结构 | Healer">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据结构
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-01-24 20:34:42" itemprop="dateCreated datePublished" datetime="2024-01-24T20:34:42+08:00">2024-01-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-01-29 00:13:04" itemprop="dateModified" datetime="2024-01-29T00:13:04+08:00">2024-01-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><h2 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h2><h2 id="栈、队列和数组"><a href="#栈、队列和数组" class="headerlink" title="栈、队列和数组"></a>栈、队列和数组</h2><h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><h4 id="栈的基本概念"><a href="#栈的基本概念" class="headerlink" title="栈的基本概念"></a>栈的基本概念</h4><p><strong>1.栈的定义</strong></p>
+<p>栈（Stack）是只允许在一端进行插入或删除操作的线性表。首先栈是一种线性表，但限定这种线性表只能在某一端进行插入和删除操作。</p>
+<p>栈顶(Top)。线性表允许进行插入删除的那一端。栈底(Bottom)。固定的，不允许进行插入和删除的另一端。空栈。不含任何元素的空表。</p>
+<p>栈的数学性质：n个不同元素进栈，出栈元素不同排列的个数为<img src="D:\myblog\hexoblog\source_posts\数据结构\1.png">。上述公式称为卡特兰(Catalan)数，可采用数学归纳法证明，有兴趣的读者可以参考组合数学教材。</p>
+<p><strong>2.栈的基本操作</strong></p>
+<ul>
+<li>InitStack(&amp;S):初始化一个空栈S。</li>
+<li>StackEmpty(S):判断一个栈是否为空，若栈S为空则返回true,否则返回false。</li>
+<li>Push(&amp;S,x):进栈，若栈S未满，则将x加入使之成为新栈顶。</li>
+<li>Pop(&amp;S,&amp;x)：出栈，若栈S非空，则弹出栈顶元素，并用x返回。</li>
+<li>GetTop(S,&amp;x)：读栈顶元素，若栈S非空，则用x返回栈顶元素。</li>
+<li>DestroyStack(&amp;S)：销毁栈，并释放栈S占用的存储空间(“&amp;”表示引用调用)。</li>
+</ul>
+<h4 id="栈的顺序存储结构"><a href="#栈的顺序存储结构" class="headerlink" title="栈的顺序存储结构"></a>栈的顺序存储结构</h4><p><strong>1.顺序栈的实现</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MaxSize 50 <span class="comment">//定义栈中元素的最大元素</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    Elemtype data[Maxsize]; <span class="comment">//栈中存放的元素</span></span><br><span class="line">    <span class="type">int</span> top; <span class="comment">//栈顶指针</span></span><br><span class="line">&#125;SqStack;</span><br></pre></td></tr></table></figure>
+
+<p>栈顶指针：S.top,初始时设置**S.top&#x3D;-1(data数组第一个元素下表从零开始，所以栈初始为空设置S.top为-1，当有元素进栈时，top值加1变为0，正好对应data[0])**；栈顶元素：S.data[S.top]。进栈操作：栈不满时，栈顶指针先加1,再送值到栈顶元素。出栈操作：栈非空时，先取栈顶元素值，再将栈顶指针减1。栈空条件：S.top &#x3D;&#x3D; -1；栈满条件：S.top&#x3D;&#x3D;MaxSize-1；栈长：S.top+1。由于顺序栈的入栈操作受数组上界的约束，当对栈的最大使用空间估计不足时，有可能发生栈上溢，此时应及时向用户报告消息，以便及时处理，避免出错。</p>
+<p><strong>2.顺序栈的基本操作</strong></p>
+<ol>
+<li><p>初始化</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitStack</span><span class="params">(SqStack &amp;S)</span>&#123;</span><br><span class="line">    S.top = <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>判断栈是否为空</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">StackEmpty</span><span class="params">(SqStack &amp;S)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top==<span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进栈</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">Push</span><span class="params">(SqStack &amp;S,ElemType x)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top == MaxSize<span class="number">-1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    S.top++;</span><br><span class="line">    S.data[S.top] = x;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>出栈</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bool Pop(SqStack &amp;S,ElemType &amp;x)&#123;</span><br><span class="line">	if(S.top == -1) return false;</span><br><span class="line">	x = S.data[S.top];</span><br><span class="line">	S.top--;</span><br><span class="line">	return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>读栈元素</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bool GetTop(SqStack S,ElemType &amp;x)&#123;</span><br><span class="line">	if(S.top == -1) return false;</span><br><span class="line">	x = S.data[S.top];</span><br><span class="line">	return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>3.共享栈</strong></p>
+<p>利用栈底位置相对不变的特性，可让两个顺序栈共享一个一维数组空间，将两个栈的栈底分别设置在共享空间的两端，两个栈顶向共享空间的中间延伸，如图3.3所示。</p>
+<center><img src="D:\myblog\hexoblog\source\_posts\数据结构\2.png" alt="image-20240124213246618" width="400px"/><center/>
+
+<p>两个栈的栈顶指针都指向栈顶元素，top0&#x3D;-1时0号栈为空，top1&#x3D;MaxSize时1号栈为空；仅当两个栈顶指针相邻(topl-top0&#x3D;1)时，判断为栈满。当0号栈进栈时top0先加1再赋值，1号栈进栈时top1先减1再赋值；出栈时则刚好相反。共享栈是为了更有效地利用存储空间，两个栈的空间相互调节，只有在整个存储空间被占满时才发生上溢。其存取数据的时间复杂度均为0(1),所以对存取效率没有什么影响。</p>
+<h4 id="栈的链式存储结构"><a href="#栈的链式存储结构" class="headerlink" title="栈的链式存储结构"></a>栈的链式存储结构</h4><p>采用链式存储的栈称为链栈，链栈的优点是便于多个栈共享存储空间和提高其效率，且不存在栈满上溢的情况。通常采用单链表实现，并规定所有操作都是在单链表的表头进行的。这里规定链栈没有头结点，Lhead指向栈顶元素，如图3.4所示。</p>
+<center><img src="D:\myblog\hexoblog\source\_posts\数据结构\3.png" alt="image-20240124213246618" width="400px"/><center/>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Linknode</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Linknode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;*LiStack;</span><br></pre></td></tr></table></figure>
+
+<h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><h4 id="队列的基本概念"><a href="#队列的基本概念" class="headerlink" title="队列的基本概念"></a>队列的基本概念</h4><p><strong>1.队列的定义</strong></p>
+<p>队列(Queue)简称队，也是一种操作受限的线性表，只允许在表的一端进行插入，而在表的另一端进行删除。向队列中插入元素称为入队或进队；删除元素称为出队或离队。这和我们日常生活中的排队是一致的，最早排队的也是最早离队的，其操作的特性是先进先出(FirstInFirstOut,FIFO),如图3.5所示。</p>
+<p><img src="D:\myblog\hexoblog\source_posts\数据结构\4.png" alt="image-20240127154651404"></p>
+<p>队头(Front)。允许删除的一端，又称队首。</p>
+<p>队尾(Rear)。允许插入的一端。</p>
+<p>空队列。不含任何元素的空表。</p>
+<p><strong>2.队列常见的基本操作</strong></p>
+<ul>
+<li>InitQueue(&amp;Q):初始化队列，构造一个空队列Q。</li>
+<li>QueueEmpty(Q)：判队列空，若队列Q为空返回true,否则返回false。</li>
+<li>EnQueue(&amp;Q,x)：入队，若队列Q未满，将x加入，使之成为新的队尾。</li>
+<li>DeQueue(&amp;Q,&amp;x)：出队，若队列Q非空，删除队头元素，并用x返回。</li>
+<li>GetHead(Q,&amp;x)：读队头元素，若队列Q非空，则将队头元素赋值给X。</li>
+</ul>
+<p>需要注意的是，栈和队列是操作受限的线性表，因此不是任何对线性表的操作都可以作为栈和队列的操作。比如，不可以随便读取栈或队列中间的某个数据。</p>
+<h4 id="队列的顺序存储结构"><a href="#队列的顺序存储结构" class="headerlink" title="队列的顺序存储结构"></a>队列的顺序存储结构</h4><p><strong>1.队列的顺序存储</strong></p>
+<p>队列的顺序实现是指分配一块连续的存储单元存放队列中的元素，并附设两个指针：队头指针front指向队头元素，队尾指针rear指向队尾元素的下一个位置(不同教材对front和rear的定义可能不同，例如，可以让rear指向队尾元素、front指向队头元素。对于不同的定义，出队入队的操作是不同的,本节后面有一些相关的习题，读者可以结合习题思考)。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MaxSize 50</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    ElemType data[MaxSize];</span><br><span class="line">    <span class="type">int</span> front,rear;</span><br><span class="line">&#125;SqQueue;</span><br></pre></td></tr></table></figure>
+
+<h4 id="数组与特殊矩阵"><a href="#数组与特殊矩阵" class="headerlink" title="数组与特殊矩阵"></a>数组与特殊矩阵</h4><h2 id="串"><a href="#串" class="headerlink" title="串"></a>串</h2><h4 id="串定义与实现"><a href="#串定义与实现" class="headerlink" title="串定义与实现"></a>串定义与实现</h4><h4 id="x3D-x3D-串的模式匹配算法-x3D-x3D"><a href="#x3D-x3D-串的模式匹配算法-x3D-x3D" class="headerlink" title="&#x3D;&#x3D;串的模式匹配算法&#x3D;&#x3D;"></a>&#x3D;&#x3D;串的模式匹配算法&#x3D;&#x3D;</h4><h2 id="树和二叉树"><a href="#树和二叉树" class="headerlink" title="树和二叉树"></a>树和二叉树</h2><h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/01/24/QT5%E5%9F%BA%E7%A1%80/" rel="prev" title="QT5基础">
+                  <i class="fa fa-chevron-left"></i> QT5基础
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/06/22/%E6%97%A5%E8%AE%B0/" rel="next" title="日记">
+                  日记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WX</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">14k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">50 分钟</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/Anewuserxw" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -3,7 +3,40 @@
   <entry>
     <title>QT5基础</title>
     <url>/2024/01/24/QT5%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<h1 id="QT5基础"><a href="#QT5基础" class="headerlink" title="QT5基础"></a>QT5基础</h1><h2 id="布局管理"><a href="#布局管理" class="headerlink" title="布局管理"></a>布局管理</h2><h3 id="分割窗口类QSplitter"><a href="#分割窗口类QSplitter" class="headerlink" title="分割窗口类QSplitter"></a>分割窗口类QSplitter</h3><p>QSplitter* splitterMain &#x3D; new QSPlitter(QT::Horizontal,0)；&#x2F;&#x2F;定义主分割窗口。</p>
+    <content><![CDATA[<h1 id="QT5基础"><a href="#QT5基础" class="headerlink" title="QT5基础"></a>QT5基础</h1><h2 id="字符串类和容器类"><a href="#字符串类和容器类" class="headerlink" title="字符串类和容器类"></a>字符串类和容器类</h2><h3 id="字符串类"><a href="#字符串类" class="headerlink" title="字符串类"></a>字符串类</h3><p>QT中用QString可定义和声名字符串。</p>
+<ol>
+<li><pre><code class="qt">//通过&quot;+&quot;末尾进行拼接
+QString str1 = &quot;Welcome&quot;; //str1=&quot; Welcome to you! &quot; 
+str1 = str1 + &quot;to you! &quot;; 
+QString str2 = &quot;Hello, &quot;; 
+str2 += &quot;World! &quot;; //str2=&quot;Hello,World! &quot;
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">2. ```qt</span><br><span class="line">   //QString::append()对字符串末尾追加另一字符串</span><br><span class="line">   QString strl =&quot;Welcome&quot;; </span><br><span class="line">   QString str2 =&quot;to&quot;; </span><br><span class="line">   str1.append(str2); //strl=&quot; Welcome to&quot; </span><br><span class="line">   strl.append (&quot;you! &quot;); //strl=&quot;Welcome to you!&quot; </span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><pre><code class="qt">//通过QString::arg()进行字符串组合
+QString str; str=QString(&quot;%1 was born in %2&quot;).arg (&quot;John&quot;).arg(1998); / / str=&quot;John was born in 1998&quot;
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">4. QString也提供了一些其他组合字符串的方法，包括如下几种.</span><br><span class="line"></span><br><span class="line">   insert()函数：在原字符串特定的位置插入另一个字符串.</span><br><span class="line"></span><br><span class="line">   prepend()函数：在原字符串的开头插入另一个字符串。</span><br><span class="line"></span><br><span class="line">    replace()函数：用指定的字符串代替原字符串中的某些字符。</span><br><span class="line"></span><br><span class="line">5. ```qt</span><br><span class="line">   //QString::trimmed()函数:移除字符串两端的空白字符。</span><br><span class="line">   //QSrting::simplified()函数:移除字符串两端的空白字符，使用单个空格字符” “代替字符串中出现的空白字符</span><br><span class="line">   QString str = &quot;  Welcome \t to \n you   &quot;</span><br><span class="line">   str1 = str.trimmed(); //str1 = &quot; Welcome \t to \n you &quot;</span><br><span class="line">   str2 = str.simplified(); //str2 = &quot;Welcome to you&quot;</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><pre><code class="qt">//QString::startWith()函数:判断一个字符串是否以某个字符串开头
+//QString::endWith()函数:判断一个字符串是否以某个字符串结尾
+//函数中有两个参数，第一个参数指定了某一个字符串，第二个参数指定是否大小写敏感（默认情况下，是大小写敏感的）
+QString str = &quot;Welcome to you!&quot;;
+str.startWith(&quot;Welocme&quot;,Qt::CaseSensitive);//返回true;
+str.startWith(&quot;you&quot;,Qt::CaseSensitive); //返回false；
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">7. ```qt</span><br><span class="line">   //QString::contains()函数:查询一个指定的字符串是否出现过</span><br><span class="line">   QString str = &quot;Welcome to you&quot;;</span><br><span class="line">   str.contains(&quot;you&quot;,Qt::CaseSensitive); //放回true;</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+<li><pre><code class="qt">//QSring::toInt()函数:将字符串转换为数据类型或其他的字符编码集。
+QString str = &quot;125&quot;;
+bool ok;
+int hex = str.toInt(&amp;ok,16);  //ok=true,hex=293;
+int dec = str.toInt(&amp;ok,10); //ok=true,dec=125;
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 容器类</span><br><span class="line"></span><br><span class="line">#### QList</span><br><span class="line"></span><br><span class="line">QList&lt;T&gt;是目前最常用的容器类 。它存储了给定类型的值的一个列表，而这些值可以通过索引访问。在内部，QList使用数组来实现，一确保进行快速的基于索引的访问。可以使用QList::append()和QList::prepend()在列表的两端添加项目，也可以使用QList::insert()在列表的中间插入项目。常用的QStringList继承自QList&lt;QString&gt;。</span><br><span class="line"></span><br><span class="line">```qt</span><br><span class="line">#include &lt;QCoreApplication&gt;</span><br><span class="line">#include &lt;QList&gt;</span><br><span class="line">#include &lt;QDebug&gt;</span><br><span class="line">int main(int argc, char *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    QCoreApplication a(argc, argv);</span><br><span class="line"></span><br><span class="line">	// 定义QList变量</span><br><span class="line">    QList&lt;QString&gt; list;</span><br><span class="line">    </span><br><span class="line">	// 插入项目</span><br><span class="line">    list &lt;&lt; &quot;aa&quot; &lt;&lt; &quot;bb&quot; &lt;&lt; &quot;cc&quot;; </span><br><span class="line">    </span><br><span class="line">    // 查询和重新定义元素</span><br><span class="line">    if(list[1] == &quot;bb&quot;)</span><br><span class="line">    &#123;</span><br><span class="line">    	list[1] = &quot;ab&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	// 替换第3个元素</span><br><span class="line">    list.replace(2, &quot;bc&quot;);        // 将“cc”换为“bc”</span><br><span class="line">    </span><br><span class="line">	// 打印元素</span><br><span class="line">	qDebug() &lt;&lt; &quot;the list is: &quot;;</span><br><span class="line">    for(int i=0; i&lt;list.size(); ++i)&#123;</span><br><span class="line">        qDebug() &lt;&lt; list.at(i);   // 现在列表为aa ab bc</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	// 在列表尾部添加元素</span><br><span class="line">    list.append(&quot;dd&quot;);</span><br><span class="line">    // 在列表头部添加元素</span><br><span class="line">    list.prepend(&quot;mm&quot;);   </span><br><span class="line">    // 从列表中删除第3个项目，并获取它        </span><br><span class="line">    QString str = list.takeAt(2); </span><br><span class="line">	// 打印刚才删除的元素</span><br><span class="line">    qDebug() &lt;&lt; &quot;at(2) item is: &quot; &lt;&lt; str;</span><br><span class="line">    // 打印列表</span><br><span class="line">    qDebug() &lt;&lt; &quot;the list is: &quot;;</span><br><span class="line">    for(int i=0; i&lt;list.size(); ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        qDebug() &lt;&lt; list.at(i);   // 现在列表为mm aa bc dd</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">	// 在位置2插入项目</span><br><span class="line">    list.insert(2, &quot;mm&quot;);</span><br><span class="line">    // 交换项目1和项目3</span><br><span class="line">    list.swap(1,3);</span><br><span class="line">    // 打印列表</span><br><span class="line">    qDebug() &lt;&lt; &quot;the list is: &quot;;</span><br><span class="line">    for(int i=0; i&lt;list.size(); ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        qDebug() &lt;&lt; list.at(i);   // 现在列表为mm bc mm aa dd</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	// 列表中是否包含“mm”</span><br><span class="line">    qDebug() &lt;&lt; &quot;contains &#x27;mm&#x27; ?&quot; &lt;&lt; list.contains(&quot;mm&quot;); </span><br><span class="line">    // 包含“mm”的个数</span><br><span class="line">    qDebug() &lt;&lt; &quot;the &#x27;mm&#x27; count: &quot; &lt;&lt; list.count(&quot;mm&quot;); </span><br><span class="line">    // 第一个“mm”的位置，默认从位置0开始往前查找，返回第一个匹配的项目的位置</span><br><span class="line">    qDebug() &lt;&lt; &quot;the first &#x27;mm&#x27; index: &quot; &lt;&lt; list.indexOf(&quot;mm&quot;);</span><br><span class="line">    // 第二个“mm”的位置，我们指定从位置1开始往前查找</span><br><span class="line">    qDebug() &lt;&lt; &quot;the second &#x27;mm&#x27; index: &quot; &lt;&lt; list.indexOf(&quot;mm&quot;, 2);</span><br><span class="line"></span><br><span class="line">    return a.exec();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ol>
+<h4 id="QMap和QHash"><a href="#QMap和QHash" class="headerlink" title="QMap和QHash"></a>QMap和QHash</h4><h2 id="布局管理"><a href="#布局管理" class="headerlink" title="布局管理"></a>布局管理</h2><h3 id="分割窗口类QSplitter"><a href="#分割窗口类QSplitter" class="headerlink" title="分割窗口类QSplitter"></a>分割窗口类QSplitter</h3><p>QSplitter* splitterMain &#x3D; new QSPlitter(QT::Horizontal,0)；&#x2F;&#x2F;定义主分割窗口。</p>
 <p>QTextEdit *textLeft &#x3D;new QTextEdit(QObject::tr(“Left Widget”), splitterMain);&#x2F;&#x2F;新建一个QTextedit类对象，将其插入主分隔窗口中。</p>
 <p>textLeft-&gt;setAlignment(Qt::AlignCenter);&#x2F;&#x2F;设置文字位置，此为文字水平且竖直居中。常用对齐方式有以下几种：</p>
 <ul>
@@ -19,9 +52,12 @@
 
 <img src="/2024/01/24/QT5%E5%9F%BA%E7%A1%80/1.png" class="">
 
+<p><img src="D:\myblog\hexoblog\source_posts\QT5基础\1.png" alt="1"></p>
 <h3 id="堆帐窗体QStackedWidget类"><a href="#堆帐窗体QStackedWidget类" class="headerlink" title="堆帐窗体QStackedWidget类"></a>堆帐窗体QStackedWidget类</h3><figure class="highlight qt"><table><tr><td class="code"><pre><span class="line">setWindowTitle(tr(<span class="string">&quot;StackedWidget&quot;</span>));</span><br><span class="line">   <span class="built_in">list</span> =<span class="keyword">new</span> QListWidget(<span class="keyword">this</span>);	<span class="comment">//新建一个QListWidget控件对象</span></span><br><span class="line">   <span class="comment">//在新建的QListWidget控件中插入三个条目，作为选择项</span></span><br><span class="line">   <span class="built_in">list</span>-&gt;insertItem(<span class="number">0</span>,tr(<span class="string">&quot;Window1&quot;</span>));</span><br><span class="line">   <span class="built_in">list</span>-&gt;insertItem(<span class="number">1</span>,tr(<span class="string">&quot;Window2&quot;</span>));</span><br><span class="line">   <span class="built_in">list</span>-&gt;insertItem(<span class="number">2</span>,tr(<span class="string">&quot;Window3&quot;</span>));</span><br><span class="line">   <span class="comment">//创建三个QLabel标签控件对象，作为堆栈窗口需要显示的三层窗体</span></span><br><span class="line">   label1 =<span class="keyword">new</span> QLabel(tr(<span class="string">&quot;WindowTest1&quot;</span>));</span><br><span class="line">   label2 =<span class="keyword">new</span> QLabel(tr(<span class="string">&quot;WindowTest2&quot;</span>));</span><br><span class="line">   label3 =<span class="keyword">new</span> QLabel(tr(<span class="string">&quot;WindowTest3&quot;</span>));</span><br><span class="line">   stack =<span class="keyword">new</span> QStackedWidget(<span class="keyword">this</span>);</span><br><span class="line">   <span class="comment">//新建一个QStackedWidget堆栈窗体对象</span></span><br><span class="line">   <span class="comment">//将创建的三个QLabel标签控件依次插入堆栈窗体中</span></span><br><span class="line">   stack-&gt;addWidget(label1);</span><br><span class="line">   stack-&gt;addWidget(label2);</span><br><span class="line">   stack-&gt;addWidget(label3);</span><br><span class="line">   QHBoxLayout *mainLayout =<span class="keyword">new</span> QHBoxLayout(<span class="keyword">this</span>);</span><br><span class="line">                                   <span class="comment">//对整个对话框进行布局</span></span><br><span class="line">   mainLayout-&gt;setMargin(<span class="number">5</span>);		<span class="comment">//设定对话框（或窗体）的边距为5</span></span><br><span class="line">   mainLayout-&gt;setSpacing(<span class="number">5</span>);		<span class="comment">//设定各个控件之间的间距为5</span></span><br><span class="line">   mainLayout-&gt;addWidget(<span class="built_in">list</span>);</span><br><span class="line">   mainLayout-&gt;addWidget(stack,<span class="number">0</span>,<span class="attribute">Qt</span>::AlignHCenter);</span><br><span class="line">   mainLayout-&gt;setStretchFactor(<span class="built_in">list</span>,<span class="number">1</span>);		<span class="comment">//(a)</span></span><br><span class="line">   mainLayout-&gt;setStretchFactor(stack,<span class="number">3</span>); 			</span><br><span class="line">   	connect(<span class="built_in">list</span>,SIGNAL(currentRowChanged(<span class="built_in">int</span>)),stack,SLOT(setCurrentIndex(<span class="built_in">int</span>)));<span class="comment">//connect(list,SIGNAL(currentRowChanged(int)),stack,SLOT(setCurrentlndex(int))): 将QListWidget的currentRowChanged()信号与堆栈窗体的setCurrentlndex()槽函数连接起来，实现按选择显示窗体。此处的堆栈窗体index按插入的顺序从0起依次排序，与QListWidget的排序一致。</span></span><br></pre></td></tr></table></figure>
 
 <img src="/2024/01/24/QT5%E5%9F%BA%E7%A1%80/2.png" class="">
+
+<p><img src="D:\myblog\hexoblog\source_posts\QT5基础\1.png" alt="1"></p>
 ]]></content>
       <categories>
         <category>QT</category>
@@ -31,43 +67,9 @@
       </tags>
   </entry>
   <entry>
-    <title>信号量机制（PV操作）</title>
-    <url>/2023/04/30/%E4%BF%A1%E5%8F%B7%E9%87%8F%E6%9C%BA%E5%88%B6%EF%BC%88PV%E6%93%8D%E4%BD%9C%EF%BC%89/</url>
-    <content><![CDATA[<p>信号量：<strong>一个信号量对应一种资源</strong>，信号量其实就是一个变量(可以是一个整数,也可以是更复杂的记录型变量),可以用一个信号量来<strong>表示系统中某种资源的数量。</strong>P就是wait操作，等待资源，V就是++操作，释放资源。<br>用户可通过PV操作来实现进程互斥与进程同步。而对于有些书中也使用down和up分别代替PV更好理解，例如用信号量解决生产者和消费者问题：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> N 100 <span class="comment">//缓冲区中的槽数目</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> semaphore; <span class="comment">//信号量是一种特殊的整形数据</span></span><br><span class="line">semaphore mutex= <span class="number">1</span>;  <span class="comment">/*控制对临界区的访问*/</span></span><br><span class="line">semaphore empty = N;  <span class="comment">/*计数缓冲区的空槽数目*/</span></span><br><span class="line">semaphore full = <span class="number">0</span>; <span class="comment">/*计数缓冲区的满槽数目*/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">producer</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line"><span class="type">int</span> item;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(TRUE)&#123;         <span class="comment">/*TRUE是常量1*/</span></span><br><span class="line">item =produce_item();<span class="comment">/*产生放在缓冲区中的一些数据*/</span></span><br><span class="line">down(&amp;empty);        <span class="comment">/*将空槽数目减1*/</span></span><br><span class="line">down(&amp;mutex);        <span class="comment">/*进入临界区*/</span></span><br><span class="line">insert_item(item);   <span class="comment">/*将新数据项放到缓冲区中*/</span></span><br><span class="line">up(&amp;mutex);          <span class="comment">/*离开临界区*/</span></span><br><span class="line">up(&amp;full);           <span class="comment">/*将满槽的数目加1*/</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">consumer</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line"><span class="type">int</span> item;</span><br><span class="line"><span class="keyword">while</span>(TRUE)&#123;        <span class="comment">/*无限循环*/</span></span><br><span class="line">down(&amp;full);        <span class="comment">/*将满槽数目减1*/</span></span><br><span class="line">down(&amp;mutex);       <span class="comment">/*进入临界区*/</span></span><br><span class="line">item = remove_item();<span class="comment">/*从缓冲区中取出数据项*/</span></span><br><span class="line">up(&amp;mutex);         <span class="comment">/*离开临界区*/</span></span><br><span class="line">up(&amp;empty):         <span class="comment">/*将空槽数目加1*/</span></span><br><span class="line">consume <span class="title function_">item</span><span class="params">(item)</span>; <span class="comment">/*处理数据项*/</span> </span><br><span class="line">     &#125;</span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
-
-<p>对于PV操作有如下例题：</p>
-<p>1.三个进程P1、P2、P3互斥使用一个包含N（N&gt;0）个单元的缓冲区。P1每次用produce()生成一个正整数并用put()送入缓冲区某一空单元中；P2每次用getodd()从该缓冲区中取出一个奇数并用countodd()统计奇数个数；P3每次用geteven()从该缓冲区中取出一个偶数并用counteven()统计偶数个数。请用信号量机制实现这三个进程的同步与互斥活动，并说明所定义的信号量的含义。要求用伪代码描述。</p>
-<p><strong>定义信号量S1控制P1与P2之间的同步；S2控制P1与P3之间的同步；empty控制生产者与消费者 之间的同步；mutex控制进程间互斥使用缓冲区。程序如下：</strong><br><strong>Var S1&#x3D;0, S2&#x3D;0, empty&#x3D;N, mutex&#x3D;1;</strong> </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">P1:begin                           </span><br><span class="line">x=produce();</span><br><span class="line">P(empty);</span><br><span class="line">P(mutex);</span><br><span class="line">Put();</span><br><span class="line">V(mutex);</span><br><span class="line">If x%2==0</span><br><span class="line">V(S2);</span><br><span class="line">else</span><br><span class="line">V(S1);</span><br><span class="line">end.</span><br><span class="line"></span><br><span class="line">P2:begin                           </span><br><span class="line">P(S1);</span><br><span class="line">P(mutex);</span><br><span class="line">getodd();</span><br><span class="line">V(mutex);</span><br><span class="line">V(empty);</span><br><span class="line">countodd();</span><br><span class="line">end.</span><br><span class="line"></span><br><span class="line">P3:begin                           </span><br><span class="line">P(S2);</span><br><span class="line">P(mutex);</span><br><span class="line">geteven();</span><br><span class="line">V(mutex);</span><br><span class="line">V(empty);</span><br><span class="line">countodd();</span><br><span class="line">end.</span><br></pre></td></tr></table></figure>
-
-
-<p>2.某工厂有两个生产车间和一个装配车间,两个生产车间分别生产A、B两种零件,装配车间的任务是把A、B两种零件装配成产品。两个生产车间每生产一个零件后都要分别把它们送到装配车间的货架F1、F2上,F1存放零件A,F2存放零件B,F1与F2的容量均为可以存放10个零件。装配工人每次从货架上取一个A零件和一个B零件,然后组装成产品。请用:(1) 信号量和P、V操作</p>
-<p>采用信号量和P、V操作(2) 管程,进行正确的管理。</p>
-<p>（1）<strong>semaphore mutex, empty1, empty2, full1, full2;</strong></p>
-<p><strong>mutex&#x3D;1; &#x2F;&#x2F;互斥信号量,用于互斥使用货架</strong></p>
-<p><strong>empty1&#x3D;10; &#x2F;&#x2F;同步信号量,表示货架F1可容纳的零件数</strong></p>
-<p><strong>empty2&#x3D;10; &#x2F;&#x2F;同步信号量,表示货架F2可容纳的零件数</strong></p>
-<p><strong>full1&#x3D;0; &#x2F;&#x2F;同步信号量,表示货架F1已放的零件数</strong></p>
-<p><strong>full2&#x3D;0; &#x2F;&#x2F;同步信号量,表示货架F1已放的零件数</strong></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">parbegin</span><br><span class="line">process <span class="title function_">workerAi</span> <span class="params">( )</span> <span class="comment">//第一个生产车间的工人进程,i=1, 2, ... , n</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">生产一个零件A;</span><br><span class="line">P(empty1); <span class="comment">//测试货架F1是否可放零件A</span></span><br><span class="line">P(mutex);</span><br><span class="line">将一个零件A放到货架F1上;</span><br><span class="line">V(mutex);</span><br><span class="line">V(full1);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">process <span class="title function_">workerBj</span> <span class="params">( )</span> <span class="comment">//第二个生产车间的工人进程,j=1, 2, ... , m</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">生产一个零件B;</span><br><span class="line">P(empty2); <span class="comment">//测试货架F2是否可放零件B</span></span><br><span class="line">P(mutex);</span><br><span class="line">将一个零件B放到货架F2上</span><br><span class="line">V(mutex);</span><br><span class="line">V(full2);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">process <span class="title function_">workerCi</span> <span class="params">( )</span> <span class="comment">//装配车间的工人进程,i=1, 2, ... , k</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">P(full1); <span class="comment">//测试货架F1是否可放零件A</span></span><br><span class="line">P(mutex);</span><br><span class="line">从货架F1上取一个零件A</span><br><span class="line"><span class="title function_">V</span><span class="params">(mutex)</span>;</span><br><span class="line">V(empty);</span><br><span class="line">P(full2);</span><br><span class="line">P(mutex);</span><br><span class="line">从货架F2上取一个零件B</span><br><span class="line"><span class="title function_">V</span><span class="params">(mutex)</span>;</span><br><span class="line">V(empty);</span><br><span class="line">用零件A、B组装成一个产品;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">parend</span><br></pre></td></tr></table></figure>
-
-
-<p>（2）管程</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">type PC=monitor</span><br><span class="line">var countA, countB : integer;</span><br><span class="line">CA, CB, CCA, CCB : condition;</span><br><span class="line">procedure putA( ) //往货架F1上放一个零件A</span><br><span class="line">begin</span><br><span class="line">if countA=10 then CA.wait;</span><br><span class="line">将一个零件A放到货架F1上;</span><br><span class="line">countA := countA+1;</span><br><span class="line">if CCA.queue then CCA.signal;</span><br><span class="line">end</span><br><span class="line">procedure putB( ) //往货架F2上放一个零件B</span><br><span class="line">begin</span><br><span class="line">if countB=10 then CB.wait;</span><br><span class="line">将一个零件B放到货架F2上;</span><br><span class="line">countB := countBA+1;</span><br><span class="line">if CCB.queue then CCB.signal;</span><br><span class="line">end</span><br><span class="line">procedure getA( ) //从货架F1上取一个零件A</span><br><span class="line">begin</span><br><span class="line">if countA=0 then CCA.wait;</span><br><span class="line">从货架F1上取一个零件A</span><br><span class="line">countA := countA-1;</span><br><span class="line">if CA.queue then CA.signal;</span><br><span class="line">end</span><br><span class="line">procedure getB( ) //从货架F2上取一个零件B</span><br><span class="line">begin</span><br><span class="line">if countB=0 then CCB.wait;</span><br><span class="line">从货架F2上取一个零件B</span><br><span class="line">countB := countB-1;</span><br><span class="line">if CB.queue then CB.signal;</span><br><span class="line">end</span><br><span class="line">begin</span><br><span class="line">countA := 0; countB := 0;</span><br><span class="line">end</span><br><span class="line">采用上述管程时,本问题的算法可描述如下:</span><br><span class="line">parbegin</span><br><span class="line">process workerAi ( ) //第一个生产车间的工人进程,i=1, 2, ... , n</span><br><span class="line">begin</span><br><span class="line">repeat</span><br><span class="line">生产一个零件A;</span><br><span class="line">PC.putA( ); //将一个零件A放到货架F1上</span><br><span class="line">until false</span><br><span class="line">end</span><br><span class="line">process workerBj ( ) //第二个生产车间的工人进程,j=1, 2, ... , m</span><br><span class="line">begin</span><br><span class="line">repeat</span><br><span class="line">生产一个零件B;</span><br><span class="line">PC.putB( ); //将一个零件B放到货架F2上</span><br><span class="line">until false</span><br><span class="line">end</span><br><span class="line">process workerCi ( ) //装配车间的工人进程,i=1, 2, ... , k</span><br><span class="line">begin</span><br><span class="line">repeat</span><br><span class="line">PC.getA( ); //从货架F1上取一个零件A</span><br><span class="line">PC.getB( ); //从货架F2上取一个零件B</span><br><span class="line">用零件A、B组装成一个产品;</span><br><span class="line">until false</span><br><span class="line">end</span><br><span class="line">parend</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>OS</category>
-      </categories>
-      <tags>
-        <tag>PV操作</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>TinyWebserver</title>
     <url>/2023/12/21/TinyWebserver/</url>
-    <content><![CDATA[<h1 id="TineyWebserver"><a href="#TineyWebserver" class="headerlink" title="TineyWebserver"></a>TineyWebserver</h1><h2 id="服务器基本流程"><a href="#服务器基本流程" class="headerlink" title="服务器基本流程"></a>服务器基本流程</h2><p>大体流程：通过epoll技术来进行网络通信，运用线程池技术创建线程来管理对http数据的处理，同时创建数据库连接池，加入日志队列，定时器类。</p>
+    <content><![CDATA[<h1 id="TineyWebserver"><a href="#TineyWebserver" class="headerlink" title="TineyWebserver"></a>TineyWebserver</h1><h2 id="服务器基本流程"><a href="#服务器基本流程" class="headerlink" title="服务器基本流程"></a>服务器基本流程</h2><p>大体流程：通过线程池管理http类，当有客户连接传输数据时，往线程池任务队列中添加任务，线程池中已创建子线程从任务队列中取出任务执行，任务队列中的任务为相关http数据的处理。通过epoll技术来进行网络通信，运用线程池技术创建线程来管理对http数据的处理，同时创建数据库连接池，加入日志队列，定时器类。</p>
 <h2 id="lock类"><a href="#lock类" class="headerlink" title="lock类"></a>lock类</h2><p>对线程同步机制封装类。多线程同步，确保任一时刻只有一个线程能进入关键代码段。</p>
 <p>总共有三个class，分别为sem,locker,cond</p>
 <h5 id="1、sem类（信号量）"><a href="#1、sem类（信号量）" class="headerlink" title="1、sem类（信号量）"></a>1、sem类（信号量）</h5><p>sem类是一个信号量封装类。信号量是一种同步机制，用于控制多个线程之间的访问顺序。通常情况下，当多个线程需要共享一个资源时，需要使用信号量来确保每个线程按照一定的顺序访问该资源，从而避免出现竞争条件和数据不一致等问题</p>
@@ -108,6 +110,40 @@
 <h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><h2 id="数据库连接池"><a href="#数据库连接池" class="headerlink" title="数据库连接池"></a>数据库连接池</h2><h2 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h2><h2 id="日志队列"><a href="#日志队列" class="headerlink" title="日志队列"></a>日志队列</h2><h2 id="webserver类"><a href="#webserver类" class="headerlink" title="webserver类"></a>webserver类</h2><h2 id=""><a href="#" class="headerlink" title=""></a></h2>]]></content>
   </entry>
   <entry>
+    <title>信号量机制（PV操作）</title>
+    <url>/2023/04/30/%E4%BF%A1%E5%8F%B7%E9%87%8F%E6%9C%BA%E5%88%B6%EF%BC%88PV%E6%93%8D%E4%BD%9C%EF%BC%89/</url>
+    <content><![CDATA[<p>信号量：<strong>一个信号量对应一种资源</strong>，信号量其实就是一个变量(可以是一个整数,也可以是更复杂的记录型变量),可以用一个信号量来<strong>表示系统中某种资源的数量。</strong>P就是wait操作，等待资源，V就是++操作，释放资源。<br>用户可通过PV操作来实现进程互斥与进程同步。而对于有些书中也使用down和up分别代替PV更好理解，例如用信号量解决生产者和消费者问题：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> N 100 <span class="comment">//缓冲区中的槽数目</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> semaphore; <span class="comment">//信号量是一种特殊的整形数据</span></span><br><span class="line">semaphore mutex= <span class="number">1</span>;  <span class="comment">/*控制对临界区的访问*/</span></span><br><span class="line">semaphore empty = N;  <span class="comment">/*计数缓冲区的空槽数目*/</span></span><br><span class="line">semaphore full = <span class="number">0</span>; <span class="comment">/*计数缓冲区的满槽数目*/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">producer</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line"><span class="type">int</span> item;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(TRUE)&#123;         <span class="comment">/*TRUE是常量1*/</span></span><br><span class="line">item =produce_item();<span class="comment">/*产生放在缓冲区中的一些数据*/</span></span><br><span class="line">down(&amp;empty);        <span class="comment">/*将空槽数目减1*/</span></span><br><span class="line">down(&amp;mutex);        <span class="comment">/*进入临界区*/</span></span><br><span class="line">insert_item(item);   <span class="comment">/*将新数据项放到缓冲区中*/</span></span><br><span class="line">up(&amp;mutex);          <span class="comment">/*离开临界区*/</span></span><br><span class="line">up(&amp;full);           <span class="comment">/*将满槽的数目加1*/</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">consumer</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line"><span class="type">int</span> item;</span><br><span class="line"><span class="keyword">while</span>(TRUE)&#123;        <span class="comment">/*无限循环*/</span></span><br><span class="line">down(&amp;full);        <span class="comment">/*将满槽数目减1*/</span></span><br><span class="line">down(&amp;mutex);       <span class="comment">/*进入临界区*/</span></span><br><span class="line">item = remove_item();<span class="comment">/*从缓冲区中取出数据项*/</span></span><br><span class="line">up(&amp;mutex);         <span class="comment">/*离开临界区*/</span></span><br><span class="line">up(&amp;empty):         <span class="comment">/*将空槽数目加1*/</span></span><br><span class="line">consume <span class="title function_">item</span><span class="params">(item)</span>; <span class="comment">/*处理数据项*/</span> </span><br><span class="line">     &#125;</span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
+
+<p>对于PV操作有如下例题：</p>
+<p>1.三个进程P1、P2、P3互斥使用一个包含N（N&gt;0）个单元的缓冲区。P1每次用produce()生成一个正整数并用put()送入缓冲区某一空单元中；P2每次用getodd()从该缓冲区中取出一个奇数并用countodd()统计奇数个数；P3每次用geteven()从该缓冲区中取出一个偶数并用counteven()统计偶数个数。请用信号量机制实现这三个进程的同步与互斥活动，并说明所定义的信号量的含义。要求用伪代码描述。</p>
+<p><strong>定义信号量S1控制P1与P2之间的同步；S2控制P1与P3之间的同步；empty控制生产者与消费者 之间的同步；mutex控制进程间互斥使用缓冲区。程序如下：</strong><br><strong>Var S1&#x3D;0, S2&#x3D;0, empty&#x3D;N, mutex&#x3D;1;</strong> </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">P1:begin                           </span><br><span class="line">x=produce();</span><br><span class="line">P(empty);</span><br><span class="line">P(mutex);</span><br><span class="line">Put();</span><br><span class="line">V(mutex);</span><br><span class="line">If x%2==0</span><br><span class="line">V(S2);</span><br><span class="line">else</span><br><span class="line">V(S1);</span><br><span class="line">end.</span><br><span class="line"></span><br><span class="line">P2:begin                           </span><br><span class="line">P(S1);</span><br><span class="line">P(mutex);</span><br><span class="line">getodd();</span><br><span class="line">V(mutex);</span><br><span class="line">V(empty);</span><br><span class="line">countodd();</span><br><span class="line">end.</span><br><span class="line"></span><br><span class="line">P3:begin                           </span><br><span class="line">P(S2);</span><br><span class="line">P(mutex);</span><br><span class="line">geteven();</span><br><span class="line">V(mutex);</span><br><span class="line">V(empty);</span><br><span class="line">countodd();</span><br><span class="line">end.</span><br></pre></td></tr></table></figure>
+
+
+<p>2.某工厂有两个生产车间和一个装配车间,两个生产车间分别生产A、B两种零件,装配车间的任务是把A、B两种零件装配成产品。两个生产车间每生产一个零件后都要分别把它们送到装配车间的货架F1、F2上,F1存放零件A,F2存放零件B,F1与F2的容量均为可以存放10个零件。装配工人每次从货架上取一个A零件和一个B零件,然后组装成产品。请用:(1) 信号量和P、V操作</p>
+<p>采用信号量和P、V操作(2) 管程,进行正确的管理。</p>
+<p>（1）<strong>semaphore mutex, empty1, empty2, full1, full2;</strong></p>
+<p><strong>mutex&#x3D;1; &#x2F;&#x2F;互斥信号量,用于互斥使用货架</strong></p>
+<p><strong>empty1&#x3D;10; &#x2F;&#x2F;同步信号量,表示货架F1可容纳的零件数</strong></p>
+<p><strong>empty2&#x3D;10; &#x2F;&#x2F;同步信号量,表示货架F2可容纳的零件数</strong></p>
+<p><strong>full1&#x3D;0; &#x2F;&#x2F;同步信号量,表示货架F1已放的零件数</strong></p>
+<p><strong>full2&#x3D;0; &#x2F;&#x2F;同步信号量,表示货架F1已放的零件数</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">parbegin</span><br><span class="line">process <span class="title function_">workerAi</span> <span class="params">( )</span> <span class="comment">//第一个生产车间的工人进程,i=1, 2, ... , n</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">生产一个零件A;</span><br><span class="line">P(empty1); <span class="comment">//测试货架F1是否可放零件A</span></span><br><span class="line">P(mutex);</span><br><span class="line">将一个零件A放到货架F1上;</span><br><span class="line">V(mutex);</span><br><span class="line">V(full1);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">process <span class="title function_">workerBj</span> <span class="params">( )</span> <span class="comment">//第二个生产车间的工人进程,j=1, 2, ... , m</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">生产一个零件B;</span><br><span class="line">P(empty2); <span class="comment">//测试货架F2是否可放零件B</span></span><br><span class="line">P(mutex);</span><br><span class="line">将一个零件B放到货架F2上</span><br><span class="line">V(mutex);</span><br><span class="line">V(full2);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">process <span class="title function_">workerCi</span> <span class="params">( )</span> <span class="comment">//装配车间的工人进程,i=1, 2, ... , k</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">P(full1); <span class="comment">//测试货架F1是否可放零件A</span></span><br><span class="line">P(mutex);</span><br><span class="line">从货架F1上取一个零件A</span><br><span class="line"><span class="title function_">V</span><span class="params">(mutex)</span>;</span><br><span class="line">V(empty);</span><br><span class="line">P(full2);</span><br><span class="line">P(mutex);</span><br><span class="line">从货架F2上取一个零件B</span><br><span class="line"><span class="title function_">V</span><span class="params">(mutex)</span>;</span><br><span class="line">V(empty);</span><br><span class="line">用零件A、B组装成一个产品;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">parend</span><br></pre></td></tr></table></figure>
+
+
+<p>（2）管程</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">type PC=monitor</span><br><span class="line">var countA, countB : integer;</span><br><span class="line">CA, CB, CCA, CCB : condition;</span><br><span class="line">procedure putA( ) //往货架F1上放一个零件A</span><br><span class="line">begin</span><br><span class="line">if countA=10 then CA.wait;</span><br><span class="line">将一个零件A放到货架F1上;</span><br><span class="line">countA := countA+1;</span><br><span class="line">if CCA.queue then CCA.signal;</span><br><span class="line">end</span><br><span class="line">procedure putB( ) //往货架F2上放一个零件B</span><br><span class="line">begin</span><br><span class="line">if countB=10 then CB.wait;</span><br><span class="line">将一个零件B放到货架F2上;</span><br><span class="line">countB := countBA+1;</span><br><span class="line">if CCB.queue then CCB.signal;</span><br><span class="line">end</span><br><span class="line">procedure getA( ) //从货架F1上取一个零件A</span><br><span class="line">begin</span><br><span class="line">if countA=0 then CCA.wait;</span><br><span class="line">从货架F1上取一个零件A</span><br><span class="line">countA := countA-1;</span><br><span class="line">if CA.queue then CA.signal;</span><br><span class="line">end</span><br><span class="line">procedure getB( ) //从货架F2上取一个零件B</span><br><span class="line">begin</span><br><span class="line">if countB=0 then CCB.wait;</span><br><span class="line">从货架F2上取一个零件B</span><br><span class="line">countB := countB-1;</span><br><span class="line">if CB.queue then CB.signal;</span><br><span class="line">end</span><br><span class="line">begin</span><br><span class="line">countA := 0; countB := 0;</span><br><span class="line">end</span><br><span class="line">采用上述管程时,本问题的算法可描述如下:</span><br><span class="line">parbegin</span><br><span class="line">process workerAi ( ) //第一个生产车间的工人进程,i=1, 2, ... , n</span><br><span class="line">begin</span><br><span class="line">repeat</span><br><span class="line">生产一个零件A;</span><br><span class="line">PC.putA( ); //将一个零件A放到货架F1上</span><br><span class="line">until false</span><br><span class="line">end</span><br><span class="line">process workerBj ( ) //第二个生产车间的工人进程,j=1, 2, ... , m</span><br><span class="line">begin</span><br><span class="line">repeat</span><br><span class="line">生产一个零件B;</span><br><span class="line">PC.putB( ); //将一个零件B放到货架F2上</span><br><span class="line">until false</span><br><span class="line">end</span><br><span class="line">process workerCi ( ) //装配车间的工人进程,i=1, 2, ... , k</span><br><span class="line">begin</span><br><span class="line">repeat</span><br><span class="line">PC.getA( ); //从货架F1上取一个零件A</span><br><span class="line">PC.getB( ); //从货架F2上取一个零件B</span><br><span class="line">用零件A、B组装成一个产品;</span><br><span class="line">until false</span><br><span class="line">end</span><br><span class="line">parend</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>OS</category>
+      </categories>
+      <tags>
+        <tag>PV操作</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>内存管理</title>
     <url>/2023/05/04/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</url>
     <content><![CDATA[<h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3>]]></content>
@@ -135,6 +171,81 @@
       <tags>
         <tag>操作系统的启动</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>数据结构</title>
+    <url>/2024/01/24/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><h2 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h2><h2 id="栈、队列和数组"><a href="#栈、队列和数组" class="headerlink" title="栈、队列和数组"></a>栈、队列和数组</h2><h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><h4 id="栈的基本概念"><a href="#栈的基本概念" class="headerlink" title="栈的基本概念"></a>栈的基本概念</h4><p><strong>1.栈的定义</strong></p>
+<p>栈（Stack）是只允许在一端进行插入或删除操作的线性表。首先栈是一种线性表，但限定这种线性表只能在某一端进行插入和删除操作。</p>
+<p>栈顶(Top)。线性表允许进行插入删除的那一端。栈底(Bottom)。固定的，不允许进行插入和删除的另一端。空栈。不含任何元素的空表。</p>
+<p>栈的数学性质：n个不同元素进栈，出栈元素不同排列的个数为<img src="D:\myblog\hexoblog\source_posts\数据结构\1.png">。上述公式称为卡特兰(Catalan)数，可采用数学归纳法证明，有兴趣的读者可以参考组合数学教材。</p>
+<p><strong>2.栈的基本操作</strong></p>
+<ul>
+<li>InitStack(&amp;S):初始化一个空栈S。</li>
+<li>StackEmpty(S):判断一个栈是否为空，若栈S为空则返回true,否则返回false。</li>
+<li>Push(&amp;S,x):进栈，若栈S未满，则将x加入使之成为新栈顶。</li>
+<li>Pop(&amp;S,&amp;x)：出栈，若栈S非空，则弹出栈顶元素，并用x返回。</li>
+<li>GetTop(S,&amp;x)：读栈顶元素，若栈S非空，则用x返回栈顶元素。</li>
+<li>DestroyStack(&amp;S)：销毁栈，并释放栈S占用的存储空间(“&amp;”表示引用调用)。</li>
+</ul>
+<h4 id="栈的顺序存储结构"><a href="#栈的顺序存储结构" class="headerlink" title="栈的顺序存储结构"></a>栈的顺序存储结构</h4><p><strong>1.顺序栈的实现</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MaxSize 50 <span class="comment">//定义栈中元素的最大元素</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    Elemtype data[Maxsize]; <span class="comment">//栈中存放的元素</span></span><br><span class="line">    <span class="type">int</span> top; <span class="comment">//栈顶指针</span></span><br><span class="line">&#125;SqStack;</span><br></pre></td></tr></table></figure>
+
+<p>栈顶指针：S.top,初始时设置**S.top&#x3D;-1(data数组第一个元素下表从零开始，所以栈初始为空设置S.top为-1，当有元素进栈时，top值加1变为0，正好对应data[0])**；栈顶元素：S.data[S.top]。进栈操作：栈不满时，栈顶指针先加1,再送值到栈顶元素。出栈操作：栈非空时，先取栈顶元素值，再将栈顶指针减1。栈空条件：S.top &#x3D;&#x3D; -1；栈满条件：S.top&#x3D;&#x3D;MaxSize-1；栈长：S.top+1。由于顺序栈的入栈操作受数组上界的约束，当对栈的最大使用空间估计不足时，有可能发生栈上溢，此时应及时向用户报告消息，以便及时处理，避免出错。</p>
+<p><strong>2.顺序栈的基本操作</strong></p>
+<ol>
+<li><p>初始化</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitStack</span><span class="params">(SqStack &amp;S)</span>&#123;</span><br><span class="line">    S.top = <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>判断栈是否为空</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">StackEmpty</span><span class="params">(SqStack &amp;S)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top==<span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进栈</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">Push</span><span class="params">(SqStack &amp;S,ElemType x)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top == MaxSize<span class="number">-1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    S.top++;</span><br><span class="line">    S.data[S.top] = x;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>出栈</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bool Pop(SqStack &amp;S,ElemType &amp;x)&#123;</span><br><span class="line">	if(S.top == -1) return false;</span><br><span class="line">	x = S.data[S.top];</span><br><span class="line">	S.top--;</span><br><span class="line">	return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>读栈元素</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bool GetTop(SqStack S,ElemType &amp;x)&#123;</span><br><span class="line">	if(S.top == -1) return false;</span><br><span class="line">	x = S.data[S.top];</span><br><span class="line">	return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>3.共享栈</strong></p>
+<p>利用栈底位置相对不变的特性，可让两个顺序栈共享一个一维数组空间，将两个栈的栈底分别设置在共享空间的两端，两个栈顶向共享空间的中间延伸，如图3.3所示。</p>
+<center><img src="D:\myblog\hexoblog\source\_posts\数据结构\2.png" alt="image-20240124213246618" width="400px"/><center/>
+
+<p>两个栈的栈顶指针都指向栈顶元素，top0&#x3D;-1时0号栈为空，top1&#x3D;MaxSize时1号栈为空；仅当两个栈顶指针相邻(topl-top0&#x3D;1)时，判断为栈满。当0号栈进栈时top0先加1再赋值，1号栈进栈时top1先减1再赋值；出栈时则刚好相反。共享栈是为了更有效地利用存储空间，两个栈的空间相互调节，只有在整个存储空间被占满时才发生上溢。其存取数据的时间复杂度均为0(1),所以对存取效率没有什么影响。</p>
+<h4 id="栈的链式存储结构"><a href="#栈的链式存储结构" class="headerlink" title="栈的链式存储结构"></a>栈的链式存储结构</h4><p>采用链式存储的栈称为链栈，链栈的优点是便于多个栈共享存储空间和提高其效率，且不存在栈满上溢的情况。通常采用单链表实现，并规定所有操作都是在单链表的表头进行的。这里规定链栈没有头结点，Lhead指向栈顶元素，如图3.4所示。</p>
+<center><img src="D:\myblog\hexoblog\source\_posts\数据结构\3.png" alt="image-20240124213246618" width="400px"/><center/>
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Linknode</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Linknode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;*LiStack;</span><br></pre></td></tr></table></figure>
+
+<h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><h4 id="队列的基本概念"><a href="#队列的基本概念" class="headerlink" title="队列的基本概念"></a>队列的基本概念</h4><p><strong>1.队列的定义</strong></p>
+<p>队列(Queue)简称队，也是一种操作受限的线性表，只允许在表的一端进行插入，而在表的另一端进行删除。向队列中插入元素称为入队或进队；删除元素称为出队或离队。这和我们日常生活中的排队是一致的，最早排队的也是最早离队的，其操作的特性是先进先出(FirstInFirstOut,FIFO),如图3.5所示。</p>
+<p><img src="D:\myblog\hexoblog\source_posts\数据结构\4.png" alt="image-20240127154651404"></p>
+<p>队头(Front)。允许删除的一端，又称队首。</p>
+<p>队尾(Rear)。允许插入的一端。</p>
+<p>空队列。不含任何元素的空表。</p>
+<p><strong>2.队列常见的基本操作</strong></p>
+<ul>
+<li>InitQueue(&amp;Q):初始化队列，构造一个空队列Q。</li>
+<li>QueueEmpty(Q)：判队列空，若队列Q为空返回true,否则返回false。</li>
+<li>EnQueue(&amp;Q,x)：入队，若队列Q未满，将x加入，使之成为新的队尾。</li>
+<li>DeQueue(&amp;Q,&amp;x)：出队，若队列Q非空，删除队头元素，并用x返回。</li>
+<li>GetHead(Q,&amp;x)：读队头元素，若队列Q非空，则将队头元素赋值给X。</li>
+</ul>
+<p>需要注意的是，栈和队列是操作受限的线性表，因此不是任何对线性表的操作都可以作为栈和队列的操作。比如，不可以随便读取栈或队列中间的某个数据。</p>
+<h4 id="队列的顺序存储结构"><a href="#队列的顺序存储结构" class="headerlink" title="队列的顺序存储结构"></a>队列的顺序存储结构</h4><p><strong>1.队列的顺序存储</strong></p>
+<p>队列的顺序实现是指分配一块连续的存储单元存放队列中的元素，并附设两个指针：队头指针front指向队头元素，队尾指针rear指向队尾元素的下一个位置(不同教材对front和rear的定义可能不同，例如，可以让rear指向队尾元素、front指向队头元素。对于不同的定义，出队入队的操作是不同的,本节后面有一些相关的习题，读者可以结合习题思考)。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MaxSize 50</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    ElemType data[MaxSize];</span><br><span class="line">    <span class="type">int</span> front,rear;</span><br><span class="line">&#125;SqQueue;</span><br></pre></td></tr></table></figure>
+
+<h4 id="数组与特殊矩阵"><a href="#数组与特殊矩阵" class="headerlink" title="数组与特殊矩阵"></a>数组与特殊矩阵</h4><h2 id="串"><a href="#串" class="headerlink" title="串"></a>串</h2><h4 id="串定义与实现"><a href="#串定义与实现" class="headerlink" title="串定义与实现"></a>串定义与实现</h4><h4 id="x3D-x3D-串的模式匹配算法-x3D-x3D"><a href="#x3D-x3D-串的模式匹配算法-x3D-x3D" class="headerlink" title="&#x3D;&#x3D;串的模式匹配算法&#x3D;&#x3D;"></a>&#x3D;&#x3D;串的模式匹配算法&#x3D;&#x3D;</h4><h2 id="树和二叉树"><a href="#树和二叉树" class="headerlink" title="树和二叉树"></a>树和二叉树</h2><h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2>]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
   </entry>
   <entry>
     <title>文件系统</title>
@@ -186,39 +297,6 @@
       </tags>
   </entry>
   <entry>
-    <title>计算机网络</title>
-    <url>/2023/04/27/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</url>
-    <content><![CDATA[<h1 id="什么是Internet"><a href="#什么是Internet" class="headerlink" title="什么是Internet?"></a>什么是Internet?</h1><h1 id="网络边缘与网络核心"><a href="#网络边缘与网络核心" class="headerlink" title="网络边缘与网络核心"></a>网络边缘与网络核心</h1>]]></content>
-      <categories>
-        <category>Network</category>
-      </categories>
-      <tags>
-        <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>调度</title>
-    <url>/2023/04/30/%E8%B0%83%E5%BA%A6/</url>
-    <content><![CDATA[<p>调度是系统将<strong>计算机资源</strong>分配给进程。</p>
-<p>在单道程序环境下，只有一个进程存在，计算机的所有资源由一个进程独占，没有资源竞争问题。然而在多道程序环境下，多个进程并发运行，各进程之间存在资源的相互<strong>竞争</strong>，特别是对处理器资源的竞争，从而影响到系统性能。</p>
-<p>例题：1.在一个单CPU的计算机系统中，有两台外部设备R1、R2和三个进程P1、P2、P3。系统采用可剥夺式优先级的进程调度方案，且所有进程可以并行使用I&#x2F;O设备，三个进程的优先级、使用设备的先后顺序和占用设备时间如下表所示：</p>
-<img src="/2023/04/30/%E8%B0%83%E5%BA%A6/1.jpg" class="">
-
-<p><strong>对于不同的进程，优先级更高的进程会首先占用CPU。</strong></p>
-<p>首先P1进程使用R2资源30ms，所以P1的前30ms注明为R2。与此同时P2使用R1资源20ms，P3同时申请使用CPU 40ms。当P3申请使用CPU时，没有其它进程申请使用CPU，所以P3顺利得到了CPU的使用权。但我们可以看到，当系统时间到20ms时，P3失去了CPU资源，这是为什么呢因为此时P2已经使用完R1，它开始申请使用CPU了，P2的优先级比P3高，所以系统从P3手中收回CPU的使用权，把CPU分配给P2使用。当系统时间到30ms时，系统又从P2手中收回了CPU的使用权，把CPU分配给了P1使用，因为系统中P1的优先级比P2高。</p>
-<p>P1,P2,P3占用R1，R2，CPU图像如下：</p>
-<img src="/2023/04/30/%E8%B0%83%E5%BA%A6/2.jpg" class="">
-
-<p>从图可以看出P2在使用R1设备20ms后，要使用CPU30ms，但当其运行10ms后， P1要使用CPU，由于系统采用可剥夺方式调度，P1优先级高，所以将P2暂停，让P1先运行。同理，P3开始就使用CPU，但在运行20ms后，要让给高优先级的进程P2和 P1。P1从投入运行到完成需要80ms，而P2、P3由于等待资源，运行时间都延长为100ms。 CPU在90ms～100ms共10ms时间内没有利用，所以利用率为90&#x2F;100&#x3D;90%，同样计算得R2的利用率为70&#x2F;100&#x3D;70%，R1的利用率为60%。</p>
-]]></content>
-      <categories>
-        <category>OS</category>
-      </categories>
-      <tags>
-        <tag>进程的调度</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>算法</title>
     <url>/2023/04/27/%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<h1 id="前缀和、差分"><a href="#前缀和、差分" class="headerlink" title="前缀和、差分"></a>前缀和、差分</h1><p><strong><a href="https://leetcode.cn/problems/count-number-of-nice-subarrays/">统计优美字数组</a></strong></p>
@@ -252,6 +330,51 @@
       </categories>
       <tags>
         <tag>Algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>日记</title>
+    <url>/2024/06/22/%E6%97%A5%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="日记"><a href="#日记" class="headerlink" title="日记"></a>日记</h1><h2 id="2024-x2F-06-x2F-22"><a href="#2024-x2F-06-x2F-22" class="headerlink" title="2024&#x2F;06&#x2F;22"></a>2024&#x2F;06&#x2F;22</h2><p>​	活了21岁，好像还是第一次写所谓的日记，以前从不知道为什么会有人喜欢写日记，也不知道为什么今天突然想如此地正式地写一下日记，可能是最近真的太焦虑了，刷抖音说写日记可以缓解焦虑，于是我开始写了，感觉像是和一个人说话一样。焦虑心情烦躁，我觉得是因为之前失恋了，上个月五月二十一号他和我提出了分手，很讽刺的日期，在那之后我也发过很长的小作文，很虚伪，我很想和他和好，但是我却要假惺惺地说我尊重你的选择，我希望你能快乐。我记得我当时想了很久如何该组织我的文字，也很讽刺，他说他不太想回消息了，他说他过得很好，也希望我以后好好的。我们高中就在一起了，五年了，还有三年异地，真心说我真的感觉我有很多地方做得不好，只是结束的有点突然，大概到了六月多号，我真的觉得我已经忘记他了，我都觉得我好渣呀，我其实没有那么爱他，不知道是不是因为之前太忙了，这个礼拜，差不多是前几天，我突然梦到他了，没用任何征兆，就和当初他和我分手一样，梦里面他好像在和他同学说笑，看不起他同学的脸，因为我都没见过，只看得清他的脸，不知道为什么在梦里我很强烈感受到很难受，就像之前在高中他一直和别人讲话不搭理我时，我就会很难过，会哭。我似乎一直有性格问题，说实话除了他我都没有朋友，然后他也不要我了，真的是这几天好像才意识到，或许为什么现在我在写这篇日记的原因，感觉不应该说是日记，只是心里的一些想法，没人诉说，找不到和谁讲了。我这个人好奇怪，似乎除了他，我好像和谁无论男生女生好像是要稍微熟悉一点，只要当对方对我突然熟悉一点，可能在我感觉是那种粘人，但其实只是正常的朋友关系，我似乎都会感到很抵抗，我感到很抗拒，我不想和别人太熟，但是我又很怕孤独，这好像也是为什么我都没朋友的原因，当时分手时他在半夜法律很多消息，应该是早就想好这么说了，说他很难受很痛苦，说他也忍受了很久，他说他和他最好的朋友讲了我们说我们不像是在谈恋爱，我其实有点恍惚，我连朋友都没有，真的好悲哀活的，当时分手时好想找人倾诉，现在也好想找人倾诉，感觉好累活的，不知道为什么这么累了，第一次感觉活得这么失败。下半年十二月我还要考研，他还让我好好备考，说实话我已经好久没复习了，现在每天都是刷手机，真的好累每天。说实话，我真的很想他，很怀恋以前的时光，但是我又告诉我自己这样子是很小丑的，说不定他早已找到了新欢，和别人说着晚安爱你，和别人亲亲抱抱，是的，这真的很小丑。但是真的好难忘记，不知道为什么。我宿舍里唯一个稍微熟一点可以聊天的室友，今天早上也参加培训去了长沙了，估计下学期也不会回来了，早上醒来时就感觉到空虚，感觉真的只有自己一个人了，所有人都走了，之前刷抖音刷到伤感文案，评论都会有自从他离开我以后，我都发现我找不到人讲话了，不知道评论中是不是都是这样还是玩梗，但是好像说的就是我，真的好悲哀。现在宿舍里救我一个人了，大家似乎都有很好的未来很好的目标，似乎只有我还在这浪费时间写着这无用的日记。其实高中时候我就和我同学说过我很想看看我死了别人是什么反应，不知道别人有没有这个想法，我似乎很在意有没有人爱我，从小我就经常被我爸爸说教，很难受，因为一些小事就开始对我说教或着骂我，我感觉我可能从小就很缺爱，才会让我现在这个样子。说实话，我真的很想自杀，可是我真的好怕痛，唯一害怕我的家人，不知道我如果死了他们会不会很伤心，不知道会不会有人爱我，都说要自爱别人才会爱你，但是真的好难，我不知道自己是不是有点抑郁了，但我感觉没有，真希望以后有一天我能够自私一点，能够不想我的家人了，直接离开这个世界，真希望能找到一种不痛的方式帮我解脱，好累，每天浑浑噩噩也不知道自己在干嘛。可能都是失恋的原因吧，感觉唯一的精神寄托和交流没了，或许写日记就是和自己对话吧，不知道有没有用，但我最近真的很焦虑很无助，感觉没有任何的动力，感觉浑身好累，我好想发朋友圈说我要自杀了，希望有人能来拯救我，可是我都没有勇气，真的好累。我可能是真的太想他了，五年的感情真的好难忘记和释怀，我真的以为我只要几天就能忘记的。真的好累，好想有个人来配一下我，或许我真的要去找心理医生了。好累，最近好容易哭，我明明是在看游戏视频，但稍微一走神想到别的，眼泪就流出来了，好奇怪，有时候我又能开怀大笑无忧无虑，早上醒来却觉得空虚至极，不知道怎么了，我好想他，却没任何办法，好想给他发消息，体面地聊一聊，但是我们都没有，就很草草地离场了，感觉好难走出来，好想有人能帮。太累了真的好累。好想自杀，但是又不敢，真的是讽刺，之前一直不理解为何会有人自杀，也不理解会什么不珍惜生命，现在发现也许是那些人太累了而已，我也好累，写不下去了，就先这样吧，希望写日记能帮助我一点吧，你现在好像是我唯一的朋友了。</p>
+]]></content>
+      <categories>
+        <category>日记</category>
+      </categories>
+      <tags>
+        <tag>日记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机网络</title>
+    <url>/2023/04/27/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</url>
+    <content><![CDATA[<h1 id="什么是Internet"><a href="#什么是Internet" class="headerlink" title="什么是Internet?"></a>什么是Internet?</h1><h1 id="网络边缘与网络核心"><a href="#网络边缘与网络核心" class="headerlink" title="网络边缘与网络核心"></a>网络边缘与网络核心</h1>]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>调度</title>
+    <url>/2023/04/30/%E8%B0%83%E5%BA%A6/</url>
+    <content><![CDATA[<p>调度是系统将<strong>计算机资源</strong>分配给进程。</p>
+<p>在单道程序环境下，只有一个进程存在，计算机的所有资源由一个进程独占，没有资源竞争问题。然而在多道程序环境下，多个进程并发运行，各进程之间存在资源的相互<strong>竞争</strong>，特别是对处理器资源的竞争，从而影响到系统性能。</p>
+<p>例题：1.在一个单CPU的计算机系统中，有两台外部设备R1、R2和三个进程P1、P2、P3。系统采用可剥夺式优先级的进程调度方案，且所有进程可以并行使用I&#x2F;O设备，三个进程的优先级、使用设备的先后顺序和占用设备时间如下表所示：</p>
+<img src="/2023/04/30/%E8%B0%83%E5%BA%A6/1.jpg" class="">
+
+<p><strong>对于不同的进程，优先级更高的进程会首先占用CPU。</strong></p>
+<p>首先P1进程使用R2资源30ms，所以P1的前30ms注明为R2。与此同时P2使用R1资源20ms，P3同时申请使用CPU 40ms。当P3申请使用CPU时，没有其它进程申请使用CPU，所以P3顺利得到了CPU的使用权。但我们可以看到，当系统时间到20ms时，P3失去了CPU资源，这是为什么呢因为此时P2已经使用完R1，它开始申请使用CPU了，P2的优先级比P3高，所以系统从P3手中收回CPU的使用权，把CPU分配给P2使用。当系统时间到30ms时，系统又从P2手中收回了CPU的使用权，把CPU分配给了P1使用，因为系统中P1的优先级比P2高。</p>
+<p>P1,P2,P3占用R1，R2，CPU图像如下：</p>
+<img src="/2023/04/30/%E8%B0%83%E5%BA%A6/2.jpg" class="">
+
+<p>从图可以看出P2在使用R1设备20ms后，要使用CPU30ms，但当其运行10ms后， P1要使用CPU，由于系统采用可剥夺方式调度，P1优先级高，所以将P2暂停，让P1先运行。同理，P3开始就使用CPU，但在运行20ms后，要让给高优先级的进程P2和 P1。P1从投入运行到完成需要80ms，而P2、P3由于等待资源，运行时间都延长为100ms。 CPU在90ms～100ms共10ms时间内没有利用，所以利用率为90&#x2F;100&#x3D;90%，同样计算得R2的利用率为70&#x2F;100&#x3D;70%，R1的利用率为60%。</p>
+]]></content>
+      <categories>
+        <category>OS</category>
+      </categories>
+      <tags>
+        <tag>进程的调度</tag>
       </tags>
   </entry>
   <entry>
